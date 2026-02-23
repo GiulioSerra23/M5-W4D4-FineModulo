@@ -9,32 +9,61 @@ public class TargetDetection : MonoBehaviour
     [SerializeField] private Transform _target;
 
     [Header ("Vision Settings")]
-    [SerializeField] private float _viewAngle = 45f;
-    [SerializeField] private float _sightDistance = 45f;
+    [SerializeField] private float _baseViewAngle = 45f;
+    [SerializeField] private float _baseSightDistance = 45f;
 
     [Header ("Obstacles")]
     [SerializeField] private LayerMask _whatIsObstacle;
 
-    public Transform Target => _target;
-    public float ViewAngle => _viewAngle;
-    public float SightDistance => _sightDistance;
+    [Header ("Debug")]
+    [SerializeField] private bool _showDebugLine = true;
 
-    public bool CanSeePlayer()
+    private float _currentViewAngle;
+    private float _currentSightDistance;
+
+    public Transform Target => _target;
+    public float ViewAngle => _currentViewAngle;
+    public float SightDistance => _currentSightDistance;
+
+    private void Awake()
+    {
+        SetVision(1f, 1f);
+    }
+
+    public bool CanSeeTarget()
     {
         if (Target == null) return false;
 
-        Vector3 toTarget = _target.position - transform.position;
-        float sqrDistance = toTarget.sqrMagnitude;
+        Vector3 toTarget = _target.position - _head.position;
+        float distance = toTarget.magnitude;
 
-        if (sqrDistance > _sightDistance * _sightDistance) return false;
+        if (distance > _currentSightDistance) return false;
 
-        float distance = Mathf.Sqrt(sqrDistance);
-        toTarget /= distance;
+        toTarget.Normalize();
 
-        if (Vector3.Dot(transform.forward, toTarget) < Mathf.Cos(_viewAngle * Mathf.Deg2Rad)) return false;
-
-        if (Physics.Linecast(_head.position, _target.position + Vector3.up * 0.01f, _whatIsObstacle)) return false;
+        if (Vector3.Dot(_head.forward, toTarget) < Mathf.Cos(_currentViewAngle * Mathf.Deg2Rad)) return false;
+        
+        if (Physics.Linecast(_head.position, _target.position, _whatIsObstacle)) return false;
 
         return true;
+    }
+
+    public void SetVision(float angleMultiplier, float distanceMultiplier)
+    {
+        _currentViewAngle = _baseViewAngle * angleMultiplier;
+        _currentSightDistance = _baseSightDistance * distanceMultiplier;
+    }
+
+    public void ResetVision()
+    {
+        _currentViewAngle = _baseViewAngle;
+        _currentSightDistance = _baseSightDistance;
+    }
+
+    private void OnDrawGizmos() 
+    {
+        if (!_showDebugLine) return;
+
+        Debug.DrawLine(_head.position, _target.position, Color.red);
     }
 }

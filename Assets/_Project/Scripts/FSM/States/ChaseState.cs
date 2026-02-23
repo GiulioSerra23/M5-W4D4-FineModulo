@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ChaseState : FSM_BaseState
@@ -14,18 +12,19 @@ public class ChaseState : FSM_BaseState
 
     public override void OnStateEnter()
     {
-        
+        _enemy.CanBeAlerted = false;
+        _enemy.AlertAllies(_enemy.Detection.Target.position);
+        _enemy.Detection.SetVision(1.6f, 1.4f);
     }
 
     public override void StateUpdate()
     {
-        Transform target = _enemy.Detection.Target;
-
-        _enemy.HandleChase(target);
+        _enemy.Agent.isStopped = false;
+        _enemy.Agent.SetDestination(_enemy.Detection.Target.position);
     }
 
     public override void OnStateExit()
     {
-
+        _enemy.CanBeAlerted = true;
     }
 }

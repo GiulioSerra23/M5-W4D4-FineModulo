@@ -37,28 +37,37 @@ public class LineRendererHandler : MonoBehaviour
     {
         _lineRenderer.positionCount = subdivions + 1;
 
-        float startAngle = -_targetDetection.ViewAngle;
+        float viewAngle = _targetDetection.ViewAngle;       
+        float sightDistance = _targetDetection.SightDistance;
 
         Vector3 lineOrigin = Vector3.zero;
-        Vector3 raycastOrigin = transform.position + new Vector3 (0f, 0.05f, 0f);
-        Vector3 forward = Vector3.forward;
-
         _lineRenderer.SetPosition(0, lineOrigin);
 
-        float deltaAngle = (2 * _targetDetection.ViewAngle / subdivions);
+        float startAngle = -viewAngle;
+        float deltaAngle = (2 * viewAngle / subdivions);
+
+        Vector3 worldOrigin = transform.position;
+        Vector3 forward = transform.forward;
 
         for (int i = 0; i < subdivions; i++)
         {
             float currentAngle = startAngle + deltaAngle * i;
-            Vector3 direction = Quaternion.Euler(0f, currentAngle, 0f) * forward;
-            Vector3 point = lineOrigin + direction * _targetDetection.SightDistance;
+            Vector3 direction = Quaternion.AngleAxis(currentAngle, transform.up) * forward;
 
-            if (Physics.Raycast(raycastOrigin, direction, out RaycastHit hit, _targetDetection.SightDistance, _whatIsObstacle))
+            Vector3 worldEndPoint;
+
+            if (Physics.Raycast(worldOrigin, direction, out RaycastHit hit, sightDistance, _whatIsObstacle))
             {
-                point = hit.point - (raycastOrigin - lineOrigin);
+                worldEndPoint = hit.point;
+            }
+            else
+            {
+                worldEndPoint = worldOrigin + direction * sightDistance;
             }
 
-            _lineRenderer.SetPosition(i + 1, point);
+            Vector3 localPoint = transform.InverseTransformPoint(worldEndPoint);
+
+            _lineRenderer.SetPosition(i + 1, localPoint);
         }
     } 
 }

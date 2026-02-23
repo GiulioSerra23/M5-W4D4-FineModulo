@@ -15,7 +15,7 @@ public class PatrolState : FSM_BaseState
 
     public override void OnStateEnter()
     {
-        
+        _enemy.Detection.ResetVision();
     }
 
     public override void StateUpdate()

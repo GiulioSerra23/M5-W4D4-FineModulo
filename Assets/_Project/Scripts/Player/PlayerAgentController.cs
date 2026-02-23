@@ -3,8 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class PlayerNavMeshAgentController : MonoBehaviour
+public class PlayerAgentController : MonoBehaviour
 {
+    [Header ("References")]
+    [SerializeField] private ClickMarkerController _clickMarker;
+
+    [Header ("Raycast Settings")]
+    [SerializeField] private LayerMask _layerMask;
+
     private NavMeshAgent _agent;
     private Camera _mainCam;
 
@@ -19,9 +25,10 @@ public class PlayerNavMeshAgentController : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             Ray ray = _mainCam.ScreenPointToRay(Input.mousePosition);
-            if (Physics.Raycast(ray, out RaycastHit hit))
+            if (Physics.Raycast(ray, out RaycastHit hit, _layerMask))
             {
                 _agent.SetDestination(hit.point);
+                _clickMarker.ShowMarker(hit);
             }
         }
     }

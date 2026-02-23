@@ -14,6 +14,11 @@ public class CanSeeTargetTransition : FSM_BaseTransition
 
     public override bool IsConditionMet()
     {
-        return _enemy.Detection.CanSeePlayer();
+        //if (_enemy.Detection.CanSeeTarget())
+        //{
+        //    _enemy.SetLastKnowPosition(_enemy.Detection.Target.position);
+        //    return true;
+        //}        
+        return _enemy.Detection.CanSeeTarget();
     }
 }

@@ -3,9 +3,6 @@ using UnityEngine;
 
 public class PlayerRespawn : MonoBehaviour
 {
-    [Header ("References")]
-    [SerializeField] private CheckPointManager _checkPointManager;
-
     private LifeController _lifeController;
 
     private void Awake()
@@ -15,9 +12,9 @@ public class PlayerRespawn : MonoBehaviour
      
     public void Respawn()
     {
-        if (!_checkPointManager.HasCheckPoint()) return;
+        if (!CheckPointManager.Instance.HasCheckPoint()) return;
 
-        transform.position = _checkPointManager.GetCheckPoint();
+        transform.position = CheckPointManager.Instance.GetCheckPoint();
         _lifeController.RestoreFullHp();
     }
 }

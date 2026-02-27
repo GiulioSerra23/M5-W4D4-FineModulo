@@ -48,7 +48,10 @@ public class WayPointsEnemy : BaseEnemy
         _agent.isStopped = false;
         _isWaiting = false;
 
-        UpdateIndex();
-        GoToWayPoint();
+        if (!IsStunned)
+        {           
+            UpdateIndex();
+            GoToWayPoint();
+        }       
     }
 }

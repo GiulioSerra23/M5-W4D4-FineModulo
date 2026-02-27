@@ -19,6 +19,8 @@ public abstract class BaseEnemy : MonoBehaviour
     protected Collider[] _allies;
     protected Vector3 _lastKnownPosition;
 
+    protected float _baseSpeed;
+
     public TargetDetection Detection => _detection;
     public NavMeshAgent Agent => _agent;
     public bool IsAlerted { get; set; }
@@ -30,6 +32,21 @@ public abstract class BaseEnemy : MonoBehaviour
     {
         _agent = GetComponent<NavMeshAgent>();
         _allies = new Collider[_maxAlliesToAlert];
+    }
+
+    protected virtual void Start()
+    {
+        _baseSpeed = _agent.speed;
+    }
+
+    public void SetSpeed(float speed)
+    {
+        _agent.speed = speed;
+    }
+
+    public void ResetSpeed()
+    {
+        _agent.speed = _baseSpeed;
     }
 
     public void AlertAllies(Vector3 position)

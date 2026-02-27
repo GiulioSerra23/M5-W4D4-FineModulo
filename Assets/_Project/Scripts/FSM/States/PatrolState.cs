@@ -7,6 +7,8 @@ public class PatrolState : FSM_BaseState
 {
     private BaseEnemy _enemy;
 
+    public override EnemyState State => EnemyState.PATROL;
+
     public override void SetUp(FSM_Controller controller, Component owner)
     {
         base.SetUp(controller, owner);
@@ -23,8 +25,5 @@ public class PatrolState : FSM_BaseState
         _enemy.HandlePatrol();
     }
 
-    public override void OnStateExit()
-    {
-
-    }
+    public override void OnStateExit() { }
 }

@@ -2,7 +2,11 @@ using UnityEngine;
 
 public class ChaseState : FSM_BaseState
 {
+    [SerializeField] private float _chaseSpeed = 3;
+
     private BaseEnemy _enemy;
+
+    public override EnemyState State => EnemyState.CHASE;
 
     public override void SetUp(FSM_Controller controller, Component owner)
     {
@@ -21,10 +25,12 @@ public class ChaseState : FSM_BaseState
     {
         _enemy.Agent.isStopped = false;
         _enemy.Agent.SetDestination(_enemy.Detection.Target.position);
+        _enemy.SetSpeed(_chaseSpeed);
     }
 
     public override void OnStateExit()
     {
         _enemy.CanBeAlerted = true;
+        _enemy.ResetSpeed();
     }
 }

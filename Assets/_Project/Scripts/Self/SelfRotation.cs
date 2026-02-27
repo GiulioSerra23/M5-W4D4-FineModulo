@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class SelfRotation : MonoBehaviour
 {
-    public enum RotationType { Perpetual, Swing }
+    public enum RotationType { Perpetual, Swing, CopyTarget, ToTarget }
 
     [Header ("Rotation Type")]
     [SerializeField] private RotationType _rotationType;
@@ -18,6 +18,9 @@ public class SelfRotation : MonoBehaviour
     [SerializeField] private float _swingAngle = 30f;
     [SerializeField] private float _swingSpeed = 2f;
 
+    [Header ("Target Settings")]
+    [SerializeField] private Transform _target;
+
     private void PerpetualRotation()
     {
         transform.Rotate(_rotationAngles * _rotationSpeed * Time.deltaTime);
@@ -30,6 +33,17 @@ public class SelfRotation : MonoBehaviour
         transform.rotation = Quaternion.Euler(currentRotation);
     }
 
+    private void CopyTargetRotation()
+    {
+        transform.rotation = _target.rotation;
+    }
+
+    private void ToTargetRotation()
+    {
+        Vector3 direction = transform.position - _target.position;
+        transform.rotation = Quaternion.LookRotation(direction);
+    }
+
     private void Update()
     {
         switch (_rotationType)
@@ -37,9 +51,14 @@ public class SelfRotation : MonoBehaviour
             case RotationType.Perpetual:
                 PerpetualRotation();
                 break;
-
             case RotationType.Swing:
                 SwingRotation();
+                break;
+            case RotationType.CopyTarget:
+                CopyTargetRotation();
+                break;
+            case RotationType.ToTarget:
+                ToTargetRotation();
                 break;
         }
     }

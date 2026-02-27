@@ -255,6 +255,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy
       objectReference: {fileID: 0}
+    - target: {fileID: 6528806760811914043, guid: f43e6c1add77979479cd863e83674285,
+        type: 3}
+      propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[0].value
+      value: 0.09091282
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 1760337163818753956, guid: f43e6c1add77979479cd863e83674285, type: 3}
     m_RemovedGameObjects: []
@@ -301,6 +306,7 @@ MonoBehaviour:
   _enemyLayer:
     serializedVersion: 2
     m_Bits: 256
+  _showAlertSphere: 1
   _wayPoints:
   - {fileID: 4945966631851185088}
   - {fileID: 8676442388700255359}

@@ -11,13 +11,6 @@ public class SO_GranadeItem : SO_GenericItem
     [SerializeField] private float _arcHeight = 2f;
     [SerializeField] private float _travelTime = 1f;
 
-    private Camera _camera;
-
-    private void Awake()
-    {
-        _camera = Camera.main;
-    }
-
     public float ArcHeight => _arcHeight;
     public float TravelTime => _travelTime; 
     public SO_GranadeEffect Effect => _effect;
@@ -35,7 +28,5 @@ public class SO_GranadeItem : SO_GenericItem
         granade.transform.position = user.transform.position;
 
         granade.SetUp(user.transform.position, targetPosition, this, user);
-
-        InventoryManager.Instance.RemoveItem(this);
     }
 }

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: NoiseEffect
   m_EditorClassIdentifier: 
   _radius: 4
-  _maxEntityAlerted: 3
-  _alertMask:
+  _maxEntityEffected: 3
+  _layerMask:
     serializedVersion: 2
     m_Bits: 256

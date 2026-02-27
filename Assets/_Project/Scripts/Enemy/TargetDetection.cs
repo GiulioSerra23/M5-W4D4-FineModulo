@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class TargetDetection : MonoBehaviour
@@ -9,25 +8,56 @@ public class TargetDetection : MonoBehaviour
     [SerializeField] private Transform _target;
 
     [Header ("Vision Settings")]
+    [SerializeField] private int _subdivisions = 12;
+    [SerializeField] private float _interval = 0.3f;
     [SerializeField] private float _baseViewAngle = 45f;
     [SerializeField] private float _baseSightDistance = 45f;
 
     [Header ("Obstacles")]
     [SerializeField] private LayerMask _whatIsObstacle;
 
-    [Header ("Debug")]
+    [Header ("Show")]
+    [SerializeField] private bool _showFov = true;
     [SerializeField] private bool _showDebugLine = true;
 
     private float _currentViewAngle;
     private float _currentSightDistance;
+    private LineRenderer _lineRenderer;
 
     public Transform Target => _target;
-    public float ViewAngle => _currentViewAngle;
-    public float SightDistance => _currentSightDistance;
 
     private void Awake()
     {
+        _lineRenderer = GetComponent<LineRenderer>();
+    }
+
+    private void Start()
+    {
         SetVision(1f, 1f);
+
+        if (_showFov)
+        {
+            StartCoroutine(DrawFieldOfView());
+        }        
+    }
+
+    public void SetShowFov(bool showFov)
+    {
+        _showFov = showFov;
+        _lineRenderer.enabled = showFov;
+    }
+
+    private IEnumerator DrawFieldOfView()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(_interval);
+
+            if (_showFov)
+            {                
+                LineRendererUtility.DrawFieldOfView(_lineRenderer, transform, _subdivisions, _currentViewAngle, _currentSightDistance, _whatIsObstacle);
+            }            
+        }
     }
 
     public bool CanSeeTarget()

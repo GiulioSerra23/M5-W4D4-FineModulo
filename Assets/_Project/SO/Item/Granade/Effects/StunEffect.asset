@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: StunEffect
   m_EditorClassIdentifier: 
   _radius: 4
-  _stunDuration: 3
-  _maxEntityStun: 3
-  _stunMask:
+  _maxEntityEffected: 3
+  _layerMask:
     serializedVersion: 2
     m_Bits: 256
+  _stunDuration: 3

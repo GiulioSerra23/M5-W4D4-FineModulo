@@ -49,29 +49,11 @@ public class MouseTargetIndicator : MonoBehaviour
         return _origin.position;
     }
 
-    private void DrawLine(Vector3 start, Vector3 end)
-    {
-        Vector3 direction = end - start;    
-        float distance = direction.magnitude;
-        Vector3 flatDir = direction.normalized;
-
-        for (int i = 0; i < _linePoints; i++)
-        {
-            float time = i / (float)(_linePoints - 1);
-
-            Vector3 position = start + flatDir * distance * time;
-            float parabola = 4f * _arcHeight * time * (1 - time);
-            position.y += parabola;
-
-            _lineRenderer.SetPosition(i, position);
-        }
-    }
-
     private void Update()
     {
         if (_origin == null) return;
 
         _currentTarget = GetMouseWorldPosition();
-        DrawLine(_origin.position, _currentTarget);
+        LineRendererUtility.DrawParabola(_lineRenderer, _linePoints, _arcHeight, _origin.position, _currentTarget);
     }
 }

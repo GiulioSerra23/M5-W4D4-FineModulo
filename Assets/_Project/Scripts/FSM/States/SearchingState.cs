@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class SearchState : FSM_BaseState
+public class SearchingState : FSM_BaseState
 {
     [Header ("Search Settings")]
     [SerializeField] private float _searchDuration = 3f;
@@ -16,6 +16,8 @@ public class SearchState : FSM_BaseState
     private int _direction = 1;
 
     private BaseEnemy _enemy;
+
+    public override EnemyState State => EnemyState.SEARCHING;
 
     public bool HasFinished => _reachedPoint && _timer >= _searchDuration;
 

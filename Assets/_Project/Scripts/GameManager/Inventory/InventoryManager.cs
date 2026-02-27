@@ -1,7 +1,6 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Experimental.Rendering;
 
 public class InventoryManager : MonoBehaviour
 {
@@ -9,9 +8,15 @@ public class InventoryManager : MonoBehaviour
 
     [Header ("References")]
     [SerializeField] private GameObject _player;
-    [SerializeField] private List<SO_GenericItem> _inventory;
+
+    [Header("Inventory Settings")]
+    [SerializeField] private int _maxSlots = 4;
+    [SerializeField] private List<InventorySlotData> _inventory;
 
     private KeyCode[] _hotKeys;
+
+    public event Action OnInventoryChanged;
+    public int SlotCount => _inventory.Count;
 
     private void Awake()
     {
@@ -30,19 +35,38 @@ public class InventoryManager : MonoBehaviour
     {
         _hotKeys = new KeyCode[] { KeyCode.Alpha1, KeyCode.Alpha2, KeyCode.Alpha3, KeyCode.Alpha4 };
     }
-    public void TryToUse(int itemIndex)
-    {
-        if (itemIndex < 0 || itemIndex >= _inventory.Count) return;
-        if (_inventory[itemIndex] == null) return;
 
-        _inventory[itemIndex].Use(_player);
+    public InventorySlotData GetSlot(int index)
+    {
+        if (index < 0 || index >= _inventory.Count) return null;
+        return _inventory[index];
+    }
+
+    public void TryToUse(int index)
+    {
+        if (index < 0 || index >= _inventory.Count) return;
+
+        InventorySlotData slot = _inventory[index];
+
+        if (slot.Item == null) return;
+
+        slot.Item.Use(_player);
+
+        slot.Quantity--;
+
+        if (slot.Quantity <= 0)
+        {
+            _inventory.RemoveAt(index);            
+        }
+
+        OnInventoryChanged?.Invoke();
     }
 
     public int FindItem(SO_GenericItem item)
     {
         for (int i = 0; i < _inventory.Count; i++)
         {
-            if (_inventory[i] == item) return i;
+            if (_inventory[i].Item == item) return i;
         }
         return -1;
     }
@@ -54,7 +78,20 @@ public class InventoryManager : MonoBehaviour
 
     public void AddItem(SO_GenericItem item)
     {
-        _inventory.Add(item);
+        int index = FindItem(item);
+
+        if (index >= 0)
+        {
+            _inventory[index].Quantity++;
+        }
+        else
+        {
+            if (_inventory.Count >= _maxSlots) return;
+
+            _inventory.Add(new InventorySlotData(item));
+        }
+        
+        OnInventoryChanged?.Invoke();
     }
 
     public void RemoveItem(SO_GenericItem item)
@@ -78,7 +115,7 @@ public class InventoryManager : MonoBehaviour
 
             if (_inventory[i] != null && Input.GetKeyDown(_hotKeys[i]))
             {
-                _inventory[i].Use(_player);
+                TryToUse(i);
             }
         }
     }

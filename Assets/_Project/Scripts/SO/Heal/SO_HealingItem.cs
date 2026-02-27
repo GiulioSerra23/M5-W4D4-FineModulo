@@ -12,7 +12,5 @@ public class SO_HealingItem : SO_GenericItem
         if (!user.TryGetComponent<LifeController>(out var userLife)) return;
 
         userLife.AddHp(_healAmount);
-
-        InventoryManager.Instance.RemoveItem(this);
     }
 }

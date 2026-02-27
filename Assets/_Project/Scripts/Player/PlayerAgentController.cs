@@ -25,7 +25,7 @@ public class PlayerAgentController : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             Ray ray = _mainCam.ScreenPointToRay(Input.mousePosition);
-            if (Physics.Raycast(ray, out RaycastHit hit, _layerMask))
+            if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, _layerMask))
             {
                 _agent.SetDestination(hit.point);
                 _clickMarker.ShowMarker(hit);

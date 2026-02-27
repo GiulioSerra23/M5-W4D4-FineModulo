@@ -1,4 +1,5 @@
 
+using System;
 using UnityEngine;
 
 public class FSM_Controller : MonoBehaviour
@@ -7,6 +8,8 @@ public class FSM_Controller : MonoBehaviour
 
     private FSM_BaseState _currentState;
     private FSM_BaseState[] _allStates;
+
+    public event Action<EnemyState> OnStateChanged;
 
     public Component Owner { get; private set; }
 
@@ -40,9 +43,11 @@ public class FSM_Controller : MonoBehaviour
         {
             _currentState.OnStateExit();
         }
-
-        _currentState = state;
+        
+        _currentState = state;        
         _currentState.OnStateEnter();
+
+        OnStateChanged?.Invoke(_currentState.State);
     }
 
     private void Update()

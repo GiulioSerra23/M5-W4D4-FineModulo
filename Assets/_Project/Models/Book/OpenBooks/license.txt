@@ -1,0 +1,11 @@
+Model Information:
+* title:	Open Books
+* source:	https://sketchfab.com/3d-models/open-books-cbd8cc04489d41b08c1416c3425cfaf5
+* author:	Tomations (https://sketchfab.com/Tomations)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Open Books" (https://sketchfab.com/3d-models/open-books-cbd8cc04489d41b08c1416c3425cfaf5) by Tomations (https://sketchfab.com/Tomations) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

@@ -9,7 +9,7 @@ public class FSM_Controller : MonoBehaviour
     private FSM_BaseState _currentState;
     private FSM_BaseState[] _allStates;
 
-    public event Action<EnemyState> OnStateChanged;
+    public event Action<State> OnStateChanged;
 
     public Component Owner { get; private set; }
 

@@ -2,15 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Pickup : MonoBehaviour
+public class Pickup : MonoBehaviour, ITriggerable
 {
     [SerializeField] private SO_GenericItem _item;
 
-    private void OnTriggerEnter(Collider other)
+    public void TriggerEnter()
     {
-        if (!other.CompareTag(Tags.Player)) return;
-
         InventoryManager.Instance.AddItem(_item);
         Destroy(gameObject);
     }
+
+    public void TriggerExit() { }
 }

@@ -28,7 +28,7 @@ public class TargetDetection : MonoBehaviour
 
     private void Awake()
     {
-        _lineRenderer = GetComponent<LineRenderer>();
+        _lineRenderer = GetComponentInChildren<LineRenderer>();
     }
 
     private void Start()
@@ -56,13 +56,13 @@ public class TargetDetection : MonoBehaviour
             if (_showFov)
             {                
                 LineRendererUtility.DrawFieldOfView(_lineRenderer, transform, _subdivisions, _currentViewAngle, _currentSightDistance, _whatIsObstacle);
-            }            
+            }
         }
     }
 
     public bool CanSeeTarget()
     {
-        if (Target == null) return false;
+        if (_target == null) return false;
 
         Vector3 toTarget = _target.position - _head.position;
         float distance = toTarget.magnitude;
@@ -92,7 +92,7 @@ public class TargetDetection : MonoBehaviour
 
     private void OnDrawGizmos() 
     {
-        if (!_showDebugLine) return;
+        if (!_showDebugLine || _target == null) return;
 
         Debug.DrawLine(_head.position, _target.position, Color.red);
     }

@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public enum EnemyState
+public enum State
 {
     IDLE,
     PATROL,
@@ -18,7 +18,7 @@ public abstract class FSM_BaseState : MonoBehaviour
     protected FSM_BaseTransition[] _transition;
     protected Component _owner;
 
-    public abstract EnemyState State { get;}
+    public abstract State State { get;}
     public FSM_BaseTransition[] Transitions => _transition;
 
     public virtual void SetUp(FSM_Controller controller, Component owner) // Ho lasciato owner come Component anche qui per lo stesso motivo del controller, per non rendere la classe strettamente
@@ -37,5 +37,4 @@ public abstract class FSM_BaseState : MonoBehaviour
     public abstract void OnStateEnter();
     public abstract void StateUpdate();
     public abstract void OnStateExit();
-
 }

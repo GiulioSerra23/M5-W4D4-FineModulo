@@ -1,13 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using static UnityEngine.GraphicsBuffer;
 
 public class PatrolState : FSM_BaseState
 {
     private BaseEnemy _enemy;
 
-    public override EnemyState State => EnemyState.PATROL;
+    public override State State => State.PATROL;
 
     public override void SetUp(FSM_Controller controller, Component owner)
     {

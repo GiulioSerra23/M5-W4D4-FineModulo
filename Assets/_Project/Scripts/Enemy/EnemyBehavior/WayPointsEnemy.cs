@@ -8,7 +8,6 @@ public class WayPointsEnemy : BaseEnemy
     [SerializeField] private Transform[] _wayPoints;
 
     [Header("Patrol Settings")]
-    [SerializeField] private float _reachDistance = 0.3f;
     [SerializeField] private float _waitTime = 2f;
 
     private int _currentIndex = 0;

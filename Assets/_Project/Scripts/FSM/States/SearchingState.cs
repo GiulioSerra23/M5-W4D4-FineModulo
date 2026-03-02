@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -6,20 +7,17 @@ public class SearchingState : FSM_BaseState
     [Header ("Search Settings")]
     [SerializeField] private float _searchDuration = 3f;
     [SerializeField] private float _pauseDuration = 0.5f;
-    [SerializeField] private float _rotationSpeed = 120f;
     [SerializeField] private float _lookAngle = 60f;
-
-    private float _pauseTimer;
-    private float _timer;
-    private bool _reachedPoint;
-    private float _currentAngle;
-    private int _direction = 1;
 
     private BaseEnemy _enemy;
 
-    public override EnemyState State => EnemyState.SEARCHING;
+    private float _searchTimer;
+    private bool _reachedPoint;
 
-    public bool HasFinished => _reachedPoint && _timer >= _searchDuration;
+    public event Action OnStartLookingAround;
+
+    public override State State => State.SEARCHING;
+    public bool HasFinished => _reachedPoint && _searchTimer >= _searchDuration;
 
     public override void SetUp(FSM_Controller controller, Component owner)
     {
@@ -27,36 +25,40 @@ public class SearchingState : FSM_BaseState
         _enemy = owner as BaseEnemy;
     }
 
-    private void RotateDuringSearch()
+    private void UpdateSearchRotation()
     {
-        if (_pauseTimer > 0)
+        _searchTimer += Time.deltaTime;
+        float time = Mathf.Clamp01(_searchTimer / _searchDuration);
+
+        float pauseFraction = _pauseDuration / _searchDuration;
+        float activeStart = pauseFraction;
+        float activeEnd = 1f - pauseFraction;
+
+        float angleOffset = 0f;
+
+        if (time < activeStart)
         {
-            _pauseTimer -= Time.deltaTime;
-            return;
+            angleOffset = 0f;
+        }
+        else if (time > activeEnd)
+        {
+            angleOffset = 0f;
+        }
+        else
+        {
+            float activeT = (time - activeStart) / (activeEnd - activeStart);
+            angleOffset = Mathf.Sin(activeT * Mathf.PI * 2f) * _lookAngle;
         }
 
-        _timer += Time.deltaTime;
-        float rotatioStep = _rotationSpeed * Time.deltaTime * _direction;
-        _enemy.transform.Rotate(Vector3.up, rotatioStep);
-        _currentAngle += rotatioStep;
-
-        if (Mathf.Abs(_currentAngle) >= _lookAngle)
-        {
-            _direction *= -1;
-            _currentAngle = Mathf.Sign(_currentAngle) * _lookAngle;
-            _pauseTimer = _pauseDuration;
-        }
+        _enemy.SetHeadOffset(angleOffset);
     }
 
     public override void OnStateEnter()
     {
-        _timer = 0f;
+        _searchTimer = 0f;
         _reachedPoint = false;
-        _currentAngle = 0f;
-        _direction = 1;
 
         _enemy.Agent.isStopped = false;
-
         _enemy.CanBeAlerted = false;
         _enemy.IsAlerted = false;
 
@@ -67,21 +69,24 @@ public class SearchingState : FSM_BaseState
     {
         if (!_reachedPoint)
         {
-            if (!_enemy.Agent.pathPending && _enemy.Agent.remainingDistance <= 0.3f)
+            if (!_enemy.Agent.pathPending && _enemy.Agent.remainingDistance <= _enemy.ReachDistance)
             {
                 _reachedPoint = true;
                 _enemy.Agent.isStopped = true;
+                OnStartLookingAround?.Invoke();
             }
         }
         else
         {
-            RotateDuringSearch();
+            UpdateSearchRotation();
         }
     }
 
     public override void OnStateExit()
     {
+        _enemy.SetHeadOffset(0f);
+
         _enemy.Detection.ResetVision();
         _enemy.CanBeAlerted = true;
-    }    
+    }
 }

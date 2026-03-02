@@ -7,29 +7,41 @@ public abstract class BaseEnemy : MonoBehaviour
     [Header ("References")]
     [SerializeField] protected TargetDetection _detection;
 
+    [Header ("Head Settings")]
+    [SerializeField] protected Transform _head;
+    [SerializeField] protected float _headReturnSpeed = 360f;
+
     [Header ("Alert Settings")]
     [SerializeField] private float _alertRadius = 8f;
     [SerializeField] private int _maxAlliesToAlert = 5;
     [SerializeField] private LayerMask _enemyLayer;
 
+    [Header ("Movement Settings")]
+    [SerializeField] protected float _reachDistance = 0.3f;
+
     [Header("Debug")]
     [SerializeField] private bool _showAlertSphere = true;
 
+    protected AnimationParamHandler _animHandler;
     protected NavMeshAgent _agent;
     protected Collider[] _allies;
-    protected Vector3 _lastKnownPosition;
 
     protected float _baseSpeed;
+    protected float _headCurrentOffset;
+    protected float _headTargetOffset;
 
+    public Transform Head => _head;
     public TargetDetection Detection => _detection;
     public NavMeshAgent Agent => _agent;
     public bool IsAlerted { get; set; }
     public bool CanBeAlerted { get; set; } = true;
     public bool IsStunned { get; set; }
     public float StunDuration { get; private set; }
+    public float ReachDistance => _reachDistance;
 
     private void Awake()
     {
+        _animHandler = GetComponent<AnimationParamHandler>();
         _agent = GetComponent<NavMeshAgent>();
         _allies = new Collider[_maxAlliesToAlert];
     }
@@ -47,6 +59,29 @@ public abstract class BaseEnemy : MonoBehaviour
     public void ResetSpeed()
     {
         _agent.speed = _baseSpeed;
+    }
+
+    public void SetHeadOffset(float offset)
+    {
+        _headTargetOffset = offset;
+    }
+
+    private void RotateHead()
+    {
+        if (_headCurrentOffset != _headTargetOffset)
+        {
+            _headCurrentOffset = Mathf.MoveTowards(_headCurrentOffset, _headTargetOffset, _headReturnSpeed * Time.deltaTime);
+            _head.localRotation = Quaternion.Euler(0f, _headCurrentOffset, 0f);
+        }        
+    }
+
+    public void RotateToTarget()
+    {
+        Vector3 direction = (_detection.Target.position - transform.position).normalized;
+        direction.y = 0f;
+
+        Quaternion targetRotation = Quaternion.LookRotation(direction);
+        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, _agent.angularSpeed * Time.deltaTime);
     }
 
     public void AlertAllies(Vector3 position)
@@ -81,6 +116,12 @@ public abstract class BaseEnemy : MonoBehaviour
     }
 
     public abstract void HandlePatrol();
+
+    private void Update()
+    {
+        _animHandler.SetForward(_agent.velocity.magnitude);
+        RotateHead();
+    }
 
     private void OnDrawGizmos()
     {

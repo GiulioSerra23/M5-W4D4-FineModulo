@@ -6,7 +6,7 @@ public class StunnedState : FSM_BaseState
     private BaseEnemy _enemy;
     private float _timer;
 
-    public override EnemyState State => EnemyState.STUNNED;
+    public override State State => State.STUNNED;
 
     public override void SetUp(FSM_Controller controller, Component owner)
     {

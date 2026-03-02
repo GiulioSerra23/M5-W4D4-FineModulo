@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -11,11 +9,13 @@ public class PlayerAgentController : MonoBehaviour
     [Header ("Raycast Settings")]
     [SerializeField] private LayerMask _layerMask;
 
+    private AnimationParamHandler _animHandler;
     private NavMeshAgent _agent;
     private Camera _mainCam;
 
     private void Awake()
     {
+        _animHandler = GetComponent<AnimationParamHandler>();
         _agent = GetComponent<NavMeshAgent>();
         _mainCam = Camera.main;
     }
@@ -34,7 +34,8 @@ public class PlayerAgentController : MonoBehaviour
     }
 
     void Update()
-    {
+    {        
+        _animHandler.SetForward(_agent.velocity.magnitude);
         HandleClickToMove();
     }
 }

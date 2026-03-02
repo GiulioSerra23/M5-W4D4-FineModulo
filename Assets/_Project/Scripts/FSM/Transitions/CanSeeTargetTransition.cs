@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CanSeeTargetTransition : FSM_BaseTransition
@@ -14,11 +12,6 @@ public class CanSeeTargetTransition : FSM_BaseTransition
 
     public override bool IsConditionMet()
     {
-        //if (_enemy.Detection.CanSeeTarget())
-        //{
-        //    _enemy.SetLastKnowPosition(_enemy.Detection.Target.position);
-        //    return true;
-        //}        
         return _enemy.Detection.CanSeeTarget();
     }
 }

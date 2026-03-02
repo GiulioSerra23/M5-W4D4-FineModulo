@@ -109,7 +109,7 @@ public class GranadeBehavior : PoolableObject
         Shoot();
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnCollisionEnter(Collision collision)
     {
         Explode();
     }

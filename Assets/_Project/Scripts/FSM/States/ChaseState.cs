@@ -6,7 +6,7 @@ public class ChaseState : FSM_BaseState
 
     private BaseEnemy _enemy;
 
-    public override EnemyState State => EnemyState.CHASE;
+    public override State State => State.CHASE;
 
     public override void SetUp(FSM_Controller controller, Component owner)
     {
@@ -19,11 +19,13 @@ public class ChaseState : FSM_BaseState
         _enemy.CanBeAlerted = false;
         _enemy.AlertAllies(_enemy.Detection.Target.position);
         _enemy.Detection.SetVision(1.6f, 1.4f);
+        _enemy.SetHeadOffset(0f);        
     }
 
     public override void StateUpdate()
     {
         _enemy.Agent.isStopped = false;
+        _enemy.RotateToTarget();
         _enemy.Agent.SetDestination(_enemy.Detection.Target.position);
         _enemy.SetSpeed(_chaseSpeed);
     }

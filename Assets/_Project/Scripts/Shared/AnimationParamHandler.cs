@@ -1,13 +1,12 @@
-
 using UnityEngine;
 
 public class AnimationParamHandler : MonoBehaviour
 {
     [Header ("Param Names")]
     [SerializeField] private string _forwardName = "forward";
-    [SerializeField] private string _isGroundedName = "isGrounded";
-    [SerializeField] private string _isAttached = "isAttached";
-    [SerializeField] private string _jumpName = "jump";
+    [SerializeField] private string _isAttachedName = "isAttached";
+    [SerializeField] private string _isSearchingName = "isSearching";
+    [SerializeField] private string _isChasingName = "isChasing";
     [SerializeField] private string _pullName = "pull";
 
     private Animator _anim;
@@ -22,19 +21,19 @@ public class AnimationParamHandler : MonoBehaviour
         _anim.SetFloat(_forwardName, speed);
     }
 
-    public void OnIsGroundedChanged(bool isGrounded)
+    public void SetIsSearching(bool isSearching)
     {
-        _anim.SetBool(_isGroundedName, isGrounded);
+        _anim.SetBool(_isSearchingName, isSearching);
+    }
+
+    public void SetIsChasing(bool isChasing)
+    {
+        _anim.SetBool(_isChasingName, isChasing);
     }
 
     public void OnIsAttachedChanged(bool isAttached)
     {
-        _anim.SetBool(_isAttached, isAttached);
-    }
-
-    public void OnJump()
-    {
-        _anim.SetTrigger(_jumpName);
+        _anim.SetBool(_isAttachedName, isAttached);
     }
 
     public void OnPull()

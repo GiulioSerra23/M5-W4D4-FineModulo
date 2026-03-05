@@ -20,12 +20,12 @@ public class MoveSelfTriggerable : MonoBehaviour, ITriggerable
         _startPosition = transform.position;
     }
 
-    public void TriggerEnter()
+    public void TriggerEnter(Collider othera)
     {        
         _hasToMove = true;
     }
 
-    public void TriggerExit() 
+    public void TriggerExit(Collider other) 
     {
         if (_triggerBehavior == TriggerBehavior.HOLDWHILEINSIDE)
         {

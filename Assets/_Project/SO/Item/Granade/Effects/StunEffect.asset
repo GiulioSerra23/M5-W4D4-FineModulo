@@ -17,4 +17,4 @@ MonoBehaviour:
   _layerMask:
     serializedVersion: 2
     m_Bits: 256
-  _stunDuration: 3
+  _stunDuration: 10

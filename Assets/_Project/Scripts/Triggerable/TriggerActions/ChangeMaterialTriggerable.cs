@@ -13,9 +13,9 @@ public class ChangeMaterialTriggerable : MonoBehaviour, ITriggerable
         _renderer = GetComponent<Renderer>();
     }
 
-    public void TriggerEnter()
+    public void TriggerEnter(Collider other)
     {
         _renderer.material = _material;
     }
-    public void TriggerExit() { }
+    public void TriggerExit(Collider other) { }
 }

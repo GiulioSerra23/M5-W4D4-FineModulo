@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Ground
   - Granade
+  - Plushie
+  - ChessPiece
   layers:
   - Default
   - TransparentFX
@@ -18,7 +20,7 @@ TagManager:
   - Enemy
   - Granade
   - Pickup
-  - 
+  - Plushie
   - 
   - 
   - 

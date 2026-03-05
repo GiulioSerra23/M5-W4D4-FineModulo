@@ -2942,6 +2942,7 @@ MonoBehaviour:
   _markerPrefab: {fileID: 5194542693294584227, guid: fb81c49e476c182458f6bc602d1e7316,
     type: 3}
   _duration: 1
+  _spawnOffset: 0.025
 --- !u!1 &1446953535
 GameObject:
   m_ObjectHideFlags: 0
@@ -3833,11 +3834,6 @@ PrefabInstance:
     - target: {fileID: 4375138693519653299, guid: 758858bc7321c474e93251372badb2ae,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6896400395120362987, guid: 758858bc7321c474e93251372badb2ae,
-        type: 3}
-      propertyPath: m_StoppingDistance
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7644812680482458406, guid: 758858bc7321c474e93251372badb2ae,

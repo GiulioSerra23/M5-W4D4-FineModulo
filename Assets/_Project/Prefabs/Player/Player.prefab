@@ -10,10 +10,12 @@ GameObject:
   m_Component:
   - component: {fileID: 6945864587546612546}
   - component: {fileID: 5081180220743022979}
+  - component: {fileID: 4286052966307710480}
   - component: {fileID: 1466260700891005404}
   - component: {fileID: 417760483871423685}
   - component: {fileID: 1814981042353346016}
   - component: {fileID: 1345560080397985771}
+  - component: {fileID: 5789542382936012910}
   - component: {fileID: 100665194885124783}
   - component: {fileID: 8006371943703991531}
   - component: {fileID: 4391027911616114250}
@@ -37,6 +39,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 823178688266024092}
   - {fileID: 4576907846258850936}
   - {fileID: 2885838640659576646}
   m_Father: {fileID: 0}
@@ -64,6 +67,29 @@ CapsuleCollider:
   m_Height: 2.5
   m_Direction: 1
   m_Center: {x: 0, y: 0.25, z: 0}
+--- !u!136 &4286052966307710480
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 670227219717302017}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 1
+  m_Height: 3
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.18, z: 0}
 --- !u!195 &1466260700891005404
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -151,6 +177,20 @@ MonoBehaviour:
   _layerMask:
     serializedVersion: 2
     m_Bits: 128
+--- !u!114 &5789542382936012910
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 670227219717302017}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2644e6dfdd0d8e46b4993bcc386bb46, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _grabButton: Interact
+  _dropButton: Jump
 --- !u!114 &100665194885124783
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -227,6 +267,37 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7029717107128771351}
+  m_Father: {fileID: 6945864587546612546}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &4945846289109073791
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 823178688266024092}
+  m_Layer: 3
+  m_Name: GrabPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &823178688266024092
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4945846289109073791}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.749, z: -0.753}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
   m_Father: {fileID: 6945864587546612546}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5799280670305097025

@@ -12,6 +12,7 @@ public abstract class BaseEnemy : MonoBehaviour
     [SerializeField] protected float _headReturnSpeed = 360f;
 
     [Header ("Alert Settings")]
+    [SerializeField] private bool _canAlert = true;
     [SerializeField] private float _alertRadius = 8f;
     [SerializeField] private int _maxAlliesToAlert = 5;
     [SerializeField] private LayerMask _enemyLayer;
@@ -86,6 +87,8 @@ public abstract class BaseEnemy : MonoBehaviour
 
     public void AlertAllies(Vector3 position)
     {
+        if (!_canAlert) return;
+
         int count = Physics.OverlapSphereNonAlloc(transform.position, _alertRadius, _allies, _enemyLayer);
 
         for (int i = 0; i < count; i ++)

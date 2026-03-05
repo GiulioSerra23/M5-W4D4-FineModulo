@@ -21,7 +21,7 @@ public class RotateSelfTriggerable : MonoBehaviour, ITriggerable
         _startRotation = transform.localRotation;
     }
 
-    public void TriggerEnter()
+    public void TriggerEnter(Collider other)
     {
         if (!_canRetrigger && _hasRotated) return;
 
@@ -30,7 +30,7 @@ public class RotateSelfTriggerable : MonoBehaviour, ITriggerable
         _hasRotated = true;
     }
 
-    public void TriggerExit() { }
+    public void TriggerExit(Collider other) { }
 
     public void RotateBack()
     {

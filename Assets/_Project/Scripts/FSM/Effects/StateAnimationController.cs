@@ -8,13 +8,13 @@ public class StateAnimationController : MonoBehaviour
     [SerializeField] private FSM_Controller _controller;
     [SerializeField] private AnimationParamHandler _animHandler;
 
-    [Header ("States")]
-    [SerializeField] private SearchingState _searchingState;
-
+    private SearchingState _searchingState;
     private Dictionary<State, Action> _stateAnimations;
 
     private void Awake()
     {
+        _searchingState = GetComponentInChildren<SearchingState>();
+
         _stateAnimations = new Dictionary<State, Action>
         { 
             { State.CHASE, HandleChase },
@@ -25,7 +25,7 @@ public class StateAnimationController : MonoBehaviour
     private void OnEnable()
     {
         _controller.OnStateChanged += HandleStateChanged;
-        _searchingState.OnStartLookingAround += HandleSearching;
+        if (_searchingState != null) _searchingState.OnStartLookingAround += HandleSearching;
     }
 
     private void ResetAllAnimations()
@@ -66,6 +66,6 @@ public class StateAnimationController : MonoBehaviour
     private void OnDisable()
     {
         _controller.OnStateChanged -= HandleStateChanged;
-        _searchingState.OnStartLookingAround -= HandleSearching;
+        if (_searchingState != null) _searchingState.OnStartLookingAround -= HandleSearching;
     }
 }

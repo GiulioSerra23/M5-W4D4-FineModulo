@@ -9,6 +9,7 @@ public class ClickMarkerController : MonoBehaviour
 
     [Header ("Marker Settings")]
     [SerializeField] private float _duration = 1f;
+    [SerializeField] private float _spawnOffset = 0.025f;
 
     private GameObject _currentMarker;
 
@@ -17,7 +18,7 @@ public class ClickMarkerController : MonoBehaviour
         if (_currentMarker == null) _currentMarker = Instantiate(_markerPrefab, transform);
 
         _currentMarker.SetActive(true);
-        _currentMarker.transform.position = hit.point + Vector3.one * 0.01f;
+        _currentMarker.transform.position = hit.point + Vector3.one * _spawnOffset;
         _currentMarker.transform.rotation = Quaternion.LookRotation(hit.normal);
 
         StartCoroutine(Animate());

@@ -6,11 +6,11 @@ public class Pickup : MonoBehaviour, ITriggerable
 {
     [SerializeField] private SO_GenericItem _item;
 
-    public void TriggerEnter()
+    public void TriggerEnter(Collider other)
     {
         InventoryManager.Instance.AddItem(_item);
         Destroy(gameObject);
     }
 
-    public void TriggerExit() { }
+    public void TriggerExit(Collider other) { }
 }

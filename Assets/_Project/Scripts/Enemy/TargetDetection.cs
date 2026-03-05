@@ -49,9 +49,11 @@ public class TargetDetection : MonoBehaviour
 
     private IEnumerator DrawFieldOfView()
     {
+        WaitForSeconds wfs = new WaitForSeconds(_interval);
+
         while (true)
         {
-            yield return new WaitForSeconds(_interval);
+            yield return wfs;
 
             if (_showFov)
             {                
@@ -65,6 +67,7 @@ public class TargetDetection : MonoBehaviour
         if (_target == null) return false;
 
         Vector3 toTarget = _target.position - _head.position;
+        toTarget.y = 0f;
         float distance = toTarget.magnitude;
 
         if (distance > _currentSightDistance) return false;

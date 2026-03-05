@@ -8,6 +8,9 @@ public class TriggerAction : MonoBehaviour
     [SerializeField] private SoundID _triggerEnterSound = SoundID.NONE;
     [SerializeField] private SoundID _triggerExitSound = SoundID.NONE;
 
+    [Header ("Object ID")]
+    [SerializeField] private ObjectID _requiredID = ObjectID.NONE;   
+
     [Header ("Tag")]
     [SerializeField] private string _tag = Tags.Player;
 
@@ -22,9 +25,10 @@ public class TriggerAction : MonoBehaviour
     [SerializeField] protected UnityEvent _onEnter;
     [SerializeField] protected UnityEvent _onExit;
 
+    protected Collider _other;
     protected ITriggerable[] _triggerables;
     protected bool _isInside;
-    protected bool _hasActivated;
+    protected bool _hasActivated;    
 
     protected virtual void Awake()
     {
@@ -35,11 +39,11 @@ public class TriggerAction : MonoBehaviour
         }
     }
 
-    protected void Activate()
+    protected void Activate(Collider other)
     {
         foreach (var triggerable in _triggerables)
         {
-            triggerable.TriggerEnter();
+            triggerable.TriggerEnter(other);
             AudioManager.Instance.Play(_triggerEnterSound);
         }
 
@@ -54,7 +58,7 @@ public class TriggerAction : MonoBehaviour
 
         if (Input.GetButtonDown(_input))
         {
-            Activate();
+            Activate(_other);
             _hasActivated = true;
         }
     }
@@ -63,24 +67,35 @@ public class TriggerAction : MonoBehaviour
     {
         if (!other.CompareTag(_tag)) return;
 
-        _isInside = true;
-        
+        if (other.TryGetComponent<IIdentificable>(out var identificable))
+        {
+            if (identificable.ID != _requiredID) return;
+        }
+
+        _other = other;
+        _isInside = true;        
+
         if (!_useAnInput)
         {
-            Activate();
-        }
+            Activate(other);
+        }        
     }
 
     protected virtual void OnTriggerExit(Collider other)
     {
         if (!other.CompareTag(_tag)) return;
 
+        if (other.TryGetComponent<IIdentificable>(out var identificable))
+        {
+            if (identificable.ID != _requiredID) return;
+        }
+
         _isInside = false;
         _hasActivated = false;
 
         foreach (var triggerable in _triggerables)
         {
-            triggerable.TriggerExit();
+            triggerable.TriggerExit(other);
             AudioManager.Instance.Play(_triggerExitSound);
         }
 

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Tilemaps;
 using UnityEngine;
 
 public class WayPointsEnemy : BaseEnemy
@@ -12,6 +13,13 @@ public class WayPointsEnemy : BaseEnemy
 
     private int _currentIndex = 0;
     private bool _isWaiting = false;
+    private WaitForSeconds _wfs;
+
+    protected override void Start()
+    {
+        base.Start();
+        _wfs = new WaitForSeconds(_waitTime);
+    }
 
     public override void HandlePatrol()
     {
@@ -42,7 +50,7 @@ public class WayPointsEnemy : BaseEnemy
         _isWaiting = true;
         _agent.isStopped = true;
 
-        yield return new WaitForSeconds(_waitTime);
+        yield return _wfs;
 
         _agent.isStopped = false;
         _isWaiting = false;

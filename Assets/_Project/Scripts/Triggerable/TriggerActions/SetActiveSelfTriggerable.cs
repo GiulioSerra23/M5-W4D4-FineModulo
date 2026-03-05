@@ -11,7 +11,7 @@ public class SetActiveSelfTriggerable : MonoBehaviour, ITriggerable
 
     private bool _hasSetted = false;
 
-    public void TriggerEnter()
+    public void TriggerEnter(Collider other)
     {
         if (_hasSetted) return;
 
@@ -19,7 +19,7 @@ public class SetActiveSelfTriggerable : MonoBehaviour, ITriggerable
         _hasSetted = true;
     }
 
-    public void TriggerExit() 
+    public void TriggerExit(Collider other) 
     {
         if (_triggerableBehavior == TriggerBehavior.HOLDWHILEINSIDE)
         {

@@ -3,9 +3,21 @@ using UnityEngine;
 
 public class SwitchCamera : MonoBehaviour
 {
+    [Header ("References")]
     [SerializeField] private CinemachineVirtualCamera[] _virtualCameras;
 
-    private void ChangeCam()
+    private bool _canChange = true;
+
+    public void SwitchCam()
+    {
+        if (!_canChange) return;
+
+        _canChange = false;
+
+        DoSwitch();
+    }
+
+    private void DoSwitch()
     {
         int currentIndex = 0;
         int highestPriority = 0;
@@ -23,11 +35,8 @@ public class SwitchCamera : MonoBehaviour
         _virtualCameras[nextIndex].Priority = highestPriority;
     }
 
-    private void Update()
+    public void SetCanChange(bool canChange)
     {
-        if (Input.GetKeyDown(KeyCode.C))
-        {
-            ChangeCam();
-        }
+        _canChange = canChange;
     }
 }

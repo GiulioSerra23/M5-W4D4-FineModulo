@@ -9,6 +9,6 @@ public abstract class PoolableObject : MonoBehaviour, IPoolable
     
     public void Release() => _pool.ReturnToPool(this);
 
-    public virtual void OnSpawned() { }
-    public virtual void OnDespawned() { }
+    public abstract void OnSpawned();
+    public abstract void OnDespawned();
 }

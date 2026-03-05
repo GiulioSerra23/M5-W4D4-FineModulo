@@ -8,6 +8,7 @@ public enum State
     CHASE,
     SEARCHING,
     STUNNED,
+    GRABBED,
 
     NONE = 30
 }

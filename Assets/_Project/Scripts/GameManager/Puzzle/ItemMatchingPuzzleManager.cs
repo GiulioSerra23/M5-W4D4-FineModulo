@@ -25,7 +25,7 @@ public class ItemMatchingPuzzleManager : MonoBehaviour
     {
         if (_completed) return;
 
-        bool allCorrect = _slots.All(slot => slot.IsCorrect);
+        var allCorrect = _slots.All(t => t.IsCorrect);
 
         if (allCorrect)
         {

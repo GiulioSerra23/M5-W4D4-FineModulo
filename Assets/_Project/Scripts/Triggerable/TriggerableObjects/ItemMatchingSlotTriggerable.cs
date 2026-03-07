@@ -35,8 +35,6 @@ public class ItemMatchingSlotTriggerable : MonoBehaviour, ITriggerable
         {
             foreach (Rigidbody rb in rbs)
             {
-                rb.velocity = Vector3.zero;
-                rb.angularVelocity = Vector3.zero;
                 rb.isKinematic = true;
             }
         }

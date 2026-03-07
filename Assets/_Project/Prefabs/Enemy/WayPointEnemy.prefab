@@ -1983,6 +1983,11 @@ PrefabInstance:
       propertyPath: m_AgentTypeID
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4141335562748125731, guid: f43e6c1add77979479cd863e83674285,
+        type: 3}
+      propertyPath: m_WalkableMask
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 4596535746395071307, guid: f43e6c1add77979479cd863e83674285,
         type: 3}
       propertyPath: m_LocalScale.x
@@ -2041,6 +2046,11 @@ PrefabInstance:
     - target: {fileID: 6673039261889569933, guid: f43e6c1add77979479cd863e83674285,
         type: 3}
       propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7127039845950160537, guid: f43e6c1add77979479cd863e83674285,
+        type: 3}
+      propertyPath: _showDebugLine
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7765256143547092499, guid: f43e6c1add77979479cd863e83674285,
@@ -2107,10 +2117,6 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 5233347864716057814, guid: f43e6c1add77979479cd863e83674285,
         type: 3}
-      insertIndex: 2
-      addedObject: {fileID: 6298430671724682268}
-    - targetCorrespondingSourceObject: {fileID: 5233347864716057814, guid: f43e6c1add77979479cd863e83674285,
-        type: 3}
       insertIndex: -1
       addedObject: {fileID: 6318959707387707379}
     - targetCorrespondingSourceObject: {fileID: 5233347864716057814, guid: f43e6c1add77979479cd863e83674285,
@@ -2120,7 +2126,7 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 5233347864716057814, guid: f43e6c1add77979479cd863e83674285,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 6612264630083361732}
+      addedObject: {fileID: 236039458103715140}
     - targetCorrespondingSourceObject: {fileID: 6324622790660894437, guid: f43e6c1add77979479cd863e83674285,
         type: 3}
       insertIndex: -1
@@ -2142,18 +2148,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b311e4716c9a4004ea7ba9829e9021bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1946870707194229512 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 9063698525449409728, guid: f43e6c1add77979479cd863e83674285,
-    type: 3}
-  m_PrefabInstance: {fileID: 7407318981885306824}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0fca3412f125c6e43a16af7729e405e0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &2253287476285851066 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8757632497343455858, guid: f43e6c1add77979479cd863e83674285,
@@ -2172,29 +2166,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 7407318981885306824}
   m_PrefabAsset: {fileID: 0}
---- !u!136 &6298430671724682268
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3345193181145414430}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0.5}
 --- !u!114 &6318959707387707379
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2210,13 +2181,16 @@ MonoBehaviour:
   _detection: {fileID: 298435651712440657}
   _head: {fileID: 8877001947250758735}
   _headReturnSpeed: 360
+  _canAlert: 1
   _alertRadius: 12
   _maxAlliesToAlert: 5
   _enemyLayer:
     serializedVersion: 2
     m_Bits: 256
   _reachDistance: 0.3
-  _showAlertSphere: 1
+  _grabbedRb: {fileID: 0}
+  _grabbedCollider: {fileID: 0}
+  _showAlertSphere: 0
   _wayPoints:
   - {fileID: 4945966631851185088}
   - {fileID: 8676442388700255359}
@@ -2240,7 +2214,7 @@ MonoBehaviour:
   _isSearchingName: isSearching
   _isChasingName: isChasing
   _pullName: pull
---- !u!114 &6612264630083361732
+--- !u!114 &236039458103715140
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2253,7 +2227,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _damageAmount: 1
-  _interval: 0
 --- !u!1 &3533504596169623853 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6324622790660894437, guid: f43e6c1add77979479cd863e83674285,
@@ -2274,7 +2247,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _controller: {fileID: 8220720771837371026}
   _animHandler: {fileID: 5844400545612303496}
-  _searchingState: {fileID: 1946870707194229512}
 --- !u!114 &2441479297875967612
 MonoBehaviour:
   m_ObjectHideFlags: 0

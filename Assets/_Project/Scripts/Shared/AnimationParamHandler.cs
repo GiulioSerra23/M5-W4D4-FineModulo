@@ -9,6 +9,7 @@ public class AnimationParamHandler : MonoBehaviour
     [SerializeField] private string _isSearchingName = "isSearching";
     [SerializeField] private string _isChasingName = "isChasing";
     [SerializeField] private string _pullName = "pull";
+    [SerializeField] private string _isGrabbingName = "isGrabbing";
 
     private Animator _anim;
     private HashSet<string> _params;
@@ -53,10 +54,16 @@ public class AnimationParamHandler : MonoBehaviour
         _anim.SetBool(_isChasingName, isChasing);
     }
 
-    public void OnIsAttachedChanged(bool isAttached)
+    public void OnIsAttached(bool isAttached)
     {
         if (!HasParam(_isAttachedName)) return;
         _anim.SetBool(_isAttachedName, isAttached);
+    }
+
+    public void SetIsGrabbing(bool isGrabbing)      // Questa l'avevo fatta trigger inizialmente, ma non so perchè mi faceva il ciclo 2 volte come se il trigger fosse ancora attivo allora l'ho cambiata
+    {
+        if (!HasParam(_isGrabbingName)) return;
+        _anim.SetBool(_isGrabbingName, isGrabbing);
     }
 
     public void OnPull()

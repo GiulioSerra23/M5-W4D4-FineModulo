@@ -93,7 +93,7 @@ public class TargetDetection : MonoBehaviour
         _currentSightDistance = _baseSightDistance;
     }
 
-    private void OnDrawGizmos() 
+    private void OnDrawGizmos()
     {
         if (!_showDebugLine || _target == null) return;
 

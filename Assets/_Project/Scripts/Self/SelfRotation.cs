@@ -1,12 +1,13 @@
 
 using UnityEngine;
 
-public class SelfRotation : MonoBehaviour
+public class SelfRotation : MonoBehaviour, ITriggerable
 {
     public enum RotationType { Perpetual, Swing, CopyTarget, ToTarget }
 
     [Header ("Rotation Type")]
     [SerializeField] private RotationType _rotationType;
+    [SerializeField] private bool _hasToBeTriggered = false;
 
     [Header ("Rotation Settings")]
     [SerializeField]private Vector3 _rotationAngles = Vector3.up;
@@ -20,6 +21,18 @@ public class SelfRotation : MonoBehaviour
 
     [Header ("Target Settings")]
     [SerializeField] private Transform _target;
+
+    private bool _isTriggered;
+
+    private void Start()
+    {
+        _isTriggered = !_hasToBeTriggered;
+    }
+
+    public void SetTarget(Transform target)
+    {
+        _target = target;
+    }
 
     private void PerpetualRotation()
     {
@@ -44,8 +57,20 @@ public class SelfRotation : MonoBehaviour
         transform.rotation = Quaternion.LookRotation(direction);
     }
 
+    public void TriggerEnter(Collider other)
+    {
+        _isTriggered = true;
+}
+
+    public void TriggerExit(Collider other)
+    {
+        _isTriggered = false;
+    }
+
     private void Update()
     {
+        if (_hasToBeTriggered && !_isTriggered) return;
+
         switch (_rotationType)
         {
             case RotationType.Perpetual:
@@ -61,5 +86,5 @@ public class SelfRotation : MonoBehaviour
                 ToTargetRotation();
                 break;
         }
-    }
+    }    
 }

@@ -3,8 +3,7 @@ using UnityEngine;
 
 public class StunnedState : FSM_BaseState
 {
-    private BaseEnemy _enemy;
-    private DangerZone _zone;
+    private BaseEnemy _enemy;    
     private float _timer;
 
     public override State State => State.STUNNED;
@@ -13,14 +12,12 @@ public class StunnedState : FSM_BaseState
     {
         base.SetUp(controller, owner);
         _enemy = owner as BaseEnemy;
-        _zone = _enemy.gameObject.GetComponent<DangerZone>();
     }
 
     public override void OnStateEnter()
     {
         _timer = 0f;
 
-        _zone.CanDoDamage = false;
         _enemy.Agent.isStopped = true;
         _enemy.CanBeAlerted = false;
         _enemy.Detection.enabled = false;
@@ -40,7 +37,6 @@ public class StunnedState : FSM_BaseState
 
     public override void OnStateExit()
     {
-        _zone.CanDoDamage = true;
         _enemy.Agent.isStopped = false;
         _enemy.CanBeAlerted = true;
         _enemy.Detection.enabled = true;

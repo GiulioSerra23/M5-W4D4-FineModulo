@@ -1,4 +1,6 @@
 
+using UnityEngine;
+
 public enum PoolType
 {
     POOL_GRANADE_STUN,
@@ -8,6 +10,9 @@ public enum PoolType
 [System.Serializable]
 public class PoolEntry
 {
-    public PoolType PoolType;
-    public ObjectPool Pool;
+    [SerializeField] private PoolType _poolType;
+    [SerializeField] private ObjectPool _pool;
+
+    public PoolType PoolType => _poolType;
+    public ObjectPool Pool => _pool;
 }

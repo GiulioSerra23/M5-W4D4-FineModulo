@@ -6,6 +6,9 @@ public class SwitchCamera : MonoBehaviour
     [Header ("References")]
     [SerializeField] private CinemachineVirtualCamera[] _virtualCameras;
 
+    [Header ("Debug (Press C)")]
+    [SerializeField] private bool _debugSwitch = false;
+
     private bool _canChange = true;
 
     public void SwitchCam()
@@ -38,5 +41,15 @@ public class SwitchCamera : MonoBehaviour
     public void SetCanChange(bool canChange)
     {
         _canChange = canChange;
+    }
+
+    private void Update()
+    {
+        if (!_debugSwitch) return;
+
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            DoSwitch();
+        }
     }
 }

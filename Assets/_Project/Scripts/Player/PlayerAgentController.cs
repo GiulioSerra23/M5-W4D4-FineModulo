@@ -13,6 +13,8 @@ public class PlayerAgentController : MonoBehaviour
     private NavMeshAgent _agent;
     private Camera _mainCam;
 
+    public NavMeshAgent Agent => _agent;
+
     private void Awake()
     {
         _animHandler = GetComponent<AnimationParamHandler>();

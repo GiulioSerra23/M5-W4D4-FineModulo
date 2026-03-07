@@ -36,6 +36,9 @@ public enum SoundID
 [System.Serializable]
 public class SoundData
 {
-    public SoundID ID;
-    public AudioClip[] Clips;
+    [SerializeField] private SoundID _iD;
+    [SerializeField] private AudioClip[] _clips;
+
+    public SoundID ID => _iD;
+    public AudioClip[] Clips => _clips;
 }

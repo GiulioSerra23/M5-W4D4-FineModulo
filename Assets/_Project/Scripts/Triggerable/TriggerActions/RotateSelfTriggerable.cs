@@ -51,7 +51,6 @@ public class RotateSelfTriggerable : MonoBehaviour, ITriggerable
             transform.localRotation = _targetRotation;
             _isRotating = false;
         }
-
     }
 
     private void Update()

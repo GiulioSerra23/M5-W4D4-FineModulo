@@ -8,8 +8,8 @@ public abstract class BaseEnemy : MonoBehaviour
     [SerializeField] protected TargetDetection _detection;
 
     [Header ("Head Settings")]
-    [SerializeField] protected Transform _head;
-    [SerializeField] protected float _headReturnSpeed = 360f;
+    [SerializeField] private Transform _head;
+    [SerializeField] private float _headReturnSpeed = 360f;
 
     [Header ("Alert Settings")]
     [SerializeField] private bool _canAlert = true;
@@ -20,18 +20,22 @@ public abstract class BaseEnemy : MonoBehaviour
     [Header ("Movement Settings")]
     [SerializeField] protected float _reachDistance = 0.3f;
 
+    [Header("Grabbed Settings (Optional)")]
+    [SerializeField] private Rigidbody _grabbedRb;
+
     [Header("Debug")]
     [SerializeField] private bool _showAlertSphere = true;
 
-    protected AnimationParamHandler _animHandler;
+    private DangerZone _dangerZone;
+    private AnimationParamHandler _animHandler;    
+    private Collider[] _allies;
     protected NavMeshAgent _agent;
-    protected Collider[] _allies;
 
     protected float _baseSpeed;
     protected float _headCurrentOffset;
     protected float _headTargetOffset;
 
-    public Transform Head => _head;
+    public DangerZone DangerZone => _dangerZone;
     public TargetDetection Detection => _detection;
     public NavMeshAgent Agent => _agent;
     public bool IsAlerted { get; set; }
@@ -44,6 +48,7 @@ public abstract class BaseEnemy : MonoBehaviour
     {
         _animHandler = GetComponent<AnimationParamHandler>();
         _agent = GetComponent<NavMeshAgent>();
+        _dangerZone = GetComponent<DangerZone>();
         _allies = new Collider[_maxAlliesToAlert];
     }
 
@@ -116,6 +121,14 @@ public abstract class BaseEnemy : MonoBehaviour
         
         IsStunned = true;
         StunDuration = stunDuration;
+    }
+
+    public void SetGrabbedState(bool grabbed)
+    {
+        _dangerZone.CanDoDamage = !grabbed;
+        _grabbedRb.isKinematic = !grabbed;
+        Agent.enabled = !grabbed;
+        enabled = !grabbed;
     }
 
     public abstract void HandlePatrol();

@@ -16,6 +16,7 @@ public class ChaseState : FSM_BaseState
 
     public override void OnStateEnter()
     {
+        _enemy.DangerZone.CanDoDamage = true;
         _enemy.CanBeAlerted = false;
         _enemy.AlertAllies(_enemy.Detection.Target.position);
         _enemy.Detection.SetVision(1.6f, 1.4f);
@@ -32,6 +33,7 @@ public class ChaseState : FSM_BaseState
 
     public override void OnStateExit()
     {
+        _enemy.DangerZone.CanDoDamage = false;
         _enemy.CanBeAlerted = true;
         _enemy.ResetSpeed();
     }

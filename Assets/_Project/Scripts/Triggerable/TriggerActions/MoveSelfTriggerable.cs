@@ -20,7 +20,7 @@ public class MoveSelfTriggerable : MonoBehaviour, ITriggerable
         _startPosition = transform.position;
     }
 
-    public void TriggerEnter(Collider othera)
+    public void TriggerEnter(Collider other)
     {        
         _hasToMove = true;
     }
@@ -31,6 +31,11 @@ public class MoveSelfTriggerable : MonoBehaviour, ITriggerable
         {
             _hasToMove = false;
         }       
+    }
+
+    public void SetTargetPos(Transform targetPosition)
+    {
+        _targetPosition = targetPosition;
     }
 
     public void ForceExit()

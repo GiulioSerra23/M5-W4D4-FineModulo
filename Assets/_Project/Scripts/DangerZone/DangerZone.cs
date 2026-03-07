@@ -5,7 +5,7 @@ public class DangerZone : MonoBehaviour
 {
     [SerializeField] private int _damageAmount;
 
-    private bool _canDoDamage = true;
+    private bool _canDoDamage = false;
 
     public bool CanDoDamage { get => _canDoDamage; set => _canDoDamage = value; }
 

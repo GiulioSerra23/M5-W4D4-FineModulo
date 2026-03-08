@@ -3,15 +3,11 @@ using UnityEngine;
 
 public class RotateSelfTriggerable : MonoBehaviour, ITriggerable
 {
-    [Header ("Settings")]
-    [SerializeField] private bool _canRetrigger = false;
-
     [Header("Rotation Settings")]
     [SerializeField] private Vector3 _rotationAngles;
     [SerializeField] private float _rotationSpeed;
 
     private bool _isRotating = false;
-    private bool _hasRotated = false;
 
     private Quaternion _targetRotation;
     private Quaternion _startRotation;
@@ -23,19 +19,16 @@ public class RotateSelfTriggerable : MonoBehaviour, ITriggerable
 
     public void TriggerEnter(Collider other)
     {
-        if (!_canRetrigger && _hasRotated) return;
+        Quaternion rotationOffset = Quaternion.Euler(_rotationAngles);
+        _targetRotation = transform.localRotation * rotationOffset;
 
-        _targetRotation = Quaternion.Euler(_rotationAngles);
         _isRotating = true;
-        _hasRotated = true;
     }
 
     public void TriggerExit(Collider other) { }
 
     public void RotateBack()
     {
-        if (!_canRetrigger) return;
-
         _targetRotation = _startRotation;
         _isRotating = true;
     }

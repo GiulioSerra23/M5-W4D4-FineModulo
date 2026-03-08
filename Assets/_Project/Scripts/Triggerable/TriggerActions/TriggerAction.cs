@@ -9,7 +9,10 @@ public class TriggerAction : MonoBehaviour
     [SerializeField] private SoundID _triggerExitSound = SoundID.NONE;
 
     [Header ("Object ID")]
-    [SerializeField] private ObjectID _requiredID = ObjectID.NONE;   
+    [SerializeField] private ObjectID _requiredID = ObjectID.NONE;
+
+    [Header ("Trigger Settings")]
+    [SerializeField] private bool _canRetrigger = true;
 
     [Header ("Tag")]
     [SerializeField] private string _tag = Tags.Player;
@@ -91,7 +94,7 @@ public class TriggerAction : MonoBehaviour
         }
 
         _isInside = false;
-        _hasActivated = false;
+        if (_canRetrigger) _hasActivated = false;
 
         foreach (var triggerable in _triggerables)
         {

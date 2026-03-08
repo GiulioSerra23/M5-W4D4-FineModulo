@@ -194,6 +194,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _rotationType: 0
+  _hasToBeTriggered: 0
   _rotationAngles: {x: 1, y: 1, z: 1}
   _rotationSpeed: 300
   _swingAngle: 30

@@ -1618,9 +1618,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b8c3f7113485254e82ac7729eb58008, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _virtualCameras:
-  - {fileID: 1111519333}
-  - {fileID: 1267418531}
+  _gameplayCameras: []
+  _cinematicCameras: []
+  _canvas: {fileID: 0}
+  _player: {fileID: 0}
+  _mouseTargetIndicator: {fileID: 0}
+  _debugSwitch: 0
 --- !u!1 &527329353
 GameObject:
   m_ObjectHideFlags: 0
@@ -3037,10 +3040,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _pools:
-  - PoolType: 0
-    Pool: {fileID: 917798926}
-  - PoolType: 1
-    Pool: {fileID: 2105991740}
+  - _poolType: 0
+    _pool: {fileID: 0}
+  - _poolType: 0
+    _pool: {fileID: 0}
 --- !u!1 &1670945279
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,0 +1,11 @@
+Model Information:
+* title:	Lever from gmod
+* source:	https://sketchfab.com/3d-models/lever-from-gmod-5ec9821cae3f42f6a60946bae32bc105
+* author:	Typur (https://sketchfab.com/Typur)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Lever from gmod" (https://sketchfab.com/3d-models/lever-from-gmod-5ec9821cae3f42f6a60946bae32bc105) by Typur (https://sketchfab.com/Typur) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

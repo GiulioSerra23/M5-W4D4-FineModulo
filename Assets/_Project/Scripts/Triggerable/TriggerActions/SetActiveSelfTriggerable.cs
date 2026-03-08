@@ -11,6 +11,11 @@ public class SetActiveSelfTriggerable : MonoBehaviour, ITriggerable
 
     private bool _hasSetted = false;
 
+    private void Start()
+    {
+        gameObject.SetActive(!_setActive);
+    }
+
     public void TriggerEnter(Collider other)
     {
         if (_hasSetted) return;

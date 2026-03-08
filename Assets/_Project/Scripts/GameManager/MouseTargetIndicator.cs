@@ -16,6 +16,7 @@ public class MouseTargetIndicator : MonoBehaviour
     private LineRenderer _lineRenderer;
     private Vector3 _currentTarget;
 
+    public bool ShowLine { get => _showLine; set => _showLine = value; }
     public Vector3 CurrentTarget => _currentTarget;
 
     private void Awake()
@@ -39,11 +40,9 @@ public class MouseTargetIndicator : MonoBehaviour
     {
         Ray ray = _camera.ScreenPointToRay(Input.mousePosition);
 
-        Plane groundPlane = new Plane(Vector3.up, Vector3.zero);
-
-        if (groundPlane.Raycast(ray, out float enter))
+        if (Physics.Raycast(ray, out RaycastHit hit))
         {
-            return ray.GetPoint(enter);
+            return hit.point;
         }
 
         return _origin.position;

@@ -268,7 +268,6 @@ GameObject:
   - component: {fileID: 14695024}
   - component: {fileID: 14695022}
   - component: {fileID: 14695026}
-  - component: {fileID: 14695027}
   m_Layer: 0
   m_Name: MainCamera
   m_TagString: MainCamera
@@ -420,14 +419,6 @@ MonoBehaviour:
   m_CameraActivatedEvent:
     m_PersistentCalls:
       m_Calls: []
---- !u!81 &14695027
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 14695021}
-  m_Enabled: 1
 --- !u!1 &29007218
 GameObject:
   m_ObjectHideFlags: 0
@@ -9725,6 +9716,10 @@ PrefabInstance:
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 670227219717302017, guid: ef23de3f32172ac4786e30ea5c1669eb,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 561211090}
     - targetCorrespondingSourceObject: {fileID: 7693629044035025325, guid: ef23de3f32172ac4786e30ea5c1669eb,
         type: 3}
       insertIndex: -1
@@ -18551,6 +18546,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37e6adf132ceb174a8d3b9834ae061d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!81 &561211090
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 203552205}
+  m_Enabled: 1
 --- !u!1 &565192699
 GameObject:
   m_ObjectHideFlags: 0
@@ -45901,7 +45904,7 @@ MonoBehaviour:
   _cinematicDurations:
   - 3
   - 4
-  - 40
+  - 5
   _isCamPerspective: 0
   _specialCamera: {fileID: 31970430}
   _canvas: {fileID: 367530660}

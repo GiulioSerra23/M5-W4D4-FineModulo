@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82e366b18179450479219f28660c6bc1, type: 3}
   m_Name: NoiseGranade
   m_EditorClassIdentifier: 
-  _id: 2
+  _id: 50
   _name: NoiseGranade
-  _icon: {fileID: 0}
+  _icon: {fileID: 21300000, guid: 59cea680797f8914f96bdf267011d176, type: 3}
   _description: Granade that can make noise for distract enemies in range
   _poolType: 1
   _effect: {fileID: 11400000, guid: adf9bb4797b28f24f93e4158ab8b72c0, type: 2}

@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82e366b18179450479219f28660c6bc1, type: 3}
   m_Name: StunGranade
   m_EditorClassIdentifier: 
-  _id: 1
+  _id: 51
   _name: Stun Granade
-  _icon: {fileID: 0}
+  _icon: {fileID: 21300000, guid: 2e84ca1527475fc4d9ba8f38afb17780, type: 3}
   _description: Granade that can stun enemies in range for an amount of time
   _poolType: 0
   _effect: {fileID: 11400000, guid: 0752cf8296619c140ad174003bf00506, type: 2}

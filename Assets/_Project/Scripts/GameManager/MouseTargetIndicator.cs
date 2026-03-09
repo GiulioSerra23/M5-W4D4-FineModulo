@@ -53,6 +53,7 @@ public class MouseTargetIndicator : MonoBehaviour
         if (_origin == null) return;
 
         _currentTarget = GetMouseWorldPosition();
+        _lineRenderer.enabled = _showLine;
         LineRendererUtility.DrawParabola(_lineRenderer, _linePoints, _arcHeight, _origin.position, _currentTarget);
     }
 }

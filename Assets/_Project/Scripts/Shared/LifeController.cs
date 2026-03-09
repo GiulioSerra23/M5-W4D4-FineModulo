@@ -1,4 +1,5 @@
 
+using System;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -12,9 +13,8 @@ public class LifeController : MonoBehaviour
     [SerializeField] private int _currentHp;
     [SerializeField] private bool _startFullHp = true;
 
-    [Header("Events")]
-    [SerializeField] private UnityEvent<int> _onHpChanged;
-    [SerializeField] private UnityEvent _onDie;
+    public event Action<int> OnHpChanged;
+    public event Action OnDie;
 
     public int CurrentHp { get => _currentHp; private set => SetHp(value); }
 
@@ -37,11 +37,11 @@ public class LifeController : MonoBehaviour
         if (hp != _currentHp)
         {
             _currentHp = hp;
-            _onHpChanged.Invoke(_currentHp);
+            OnHpChanged?.Invoke(_currentHp);
 
             if (_currentHp <= 0)
             {
-                _onDie.Invoke();
+                OnDie?.Invoke();
             }
         }
     }
@@ -51,6 +51,6 @@ public class LifeController : MonoBehaviour
     public void TakeDamage(int amount)
     {
         SetHp(_currentHp - amount);
-        AudioManager.Instance.Play(_hitAudio);
+        AudioManager.Instance.Play3D(_hitAudio, transform);
     }
 }

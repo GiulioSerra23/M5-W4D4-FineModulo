@@ -94,6 +94,14 @@ public class InventoryManager : MonoBehaviour
         OnInventoryChanged?.Invoke();
     }
 
+    public void AddItems(SO_GenericItem item, int quantity)
+    {
+        for (int i = 0; i < quantity; i++)
+        {
+            AddItem(item);
+        }
+    }
+
     public void RemoveItem(SO_GenericItem item)
     {
         int foundIndex = FindItem(item);

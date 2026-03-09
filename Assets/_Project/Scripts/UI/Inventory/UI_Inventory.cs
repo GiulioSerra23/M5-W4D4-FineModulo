@@ -27,16 +27,20 @@ public class UI_Inventory : MonoBehaviour
 
         _container.alpha = 1f;
 
-        for (int i = 0; i < _slots.Count; i++)
+        int slotCount = Mathf.Min(_slots.Count, _inventory.SlotCount);
+
+        for (int i = 0; i < slotCount; i++)
         {
-            if (i < _inventory.SlotCount)
-            {
-                _slots[i].SetData(_inventory.GetSlot(i));
-            }
-            else
-            {
-                _slots[i].SetData(null);
-            }
+            if (_slots[i] == null) continue;
+
+            _slots[i].SetData(_inventory.GetSlot(i));
+        }
+
+        for (int i = slotCount; i < _slots.Count; i++)
+        {
+            if (_slots[i] == null) continue;
+
+            _slots[i].SetData(null);
         }
 
     }

@@ -179,6 +179,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29847b267797c2549b2c3ac938851d42, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _collisionSound: 31
   _visualRadius: {fileID: 2465476897523984691}
   _expandDuration: 0.3
 --- !u!114 &-6587558990395356664

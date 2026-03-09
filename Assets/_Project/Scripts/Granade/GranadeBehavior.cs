@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class GranadeBehavior : PoolableObject
 {
+    [Header("SoundID")]
+    [SerializeField] private SoundID _collisionSound;
+
     [Header ("Impact Effect Settings")]
     [SerializeField] private Transform _visualRadius;
     [SerializeField] private float _expandDuration = 0.3f;
@@ -48,7 +51,9 @@ public class GranadeBehavior : PoolableObject
     private void Explode()
     {
         if (_hasExploded) return;
+
         _hasExploded = true;
+        AudioManager.Instance.Play3D(_collisionSound, transform);
 
         StartCoroutine(ExpandAndApply());
     }
@@ -78,7 +83,7 @@ public class GranadeBehavior : PoolableObject
             yield return null;
         }
 
-        _data.Effect.Apply(_user, transform.position);
+        _data.Effect.Apply(_user, transform.position);       
 
         Release();
     }

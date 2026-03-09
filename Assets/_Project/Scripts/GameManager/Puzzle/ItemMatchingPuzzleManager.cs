@@ -21,7 +21,7 @@ public class ItemMatchingPuzzleManager : MonoBehaviour
         }
     }
 
-    private void HandleSlotStateChanged(ItemMatchingSlotTriggerable slot)
+    private void HandleSlotStateChanged()
     {
         if (_completed) return;
 

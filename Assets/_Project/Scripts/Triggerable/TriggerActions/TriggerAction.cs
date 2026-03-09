@@ -38,16 +38,24 @@ public class TriggerAction : MonoBehaviour
         _triggerables = new ITriggerable[_targets.Length];
         for (int i = 0; i < _targets.Length; i++)
         {
-            _triggerables[i] = _targets[i] as ITriggerable;
+            if (_targets[i] is ITriggerable t)
+            {
+                _triggerables[i] = t;
+            }
         }
     }
 
     protected void Activate(Collider other)
     {
+        if (!_canRetrigger && _hasActivated) return;
+
+        _hasActivated = true;
+
+        AudioManager.Instance.Play3D(_triggerEnterSound, transform);
+
         foreach (var triggerable in _triggerables)
         {
-            triggerable.TriggerEnter(other);
-            AudioManager.Instance.Play(_triggerEnterSound);
+            triggerable.TriggerEnter(other);            
         }
 
         _onEnter.Invoke();
@@ -62,13 +70,14 @@ public class TriggerAction : MonoBehaviour
         if (Input.GetButtonDown(_input))
         {
             Activate(_other);
-            _hasActivated = true;
         }
     }
 
     protected virtual void OnTriggerEnter(Collider other)
     {
         if (!other.CompareTag(_tag)) return;
+
+        if (!_canRetrigger && _hasActivated) return;
 
         if (other.TryGetComponent<IIdentificable>(out var identificable))
         {
@@ -96,10 +105,11 @@ public class TriggerAction : MonoBehaviour
         _isInside = false;
         if (_canRetrigger) _hasActivated = false;
 
+        AudioManager.Instance.Play3D(_triggerExitSound, transform);
+
         foreach (var triggerable in _triggerables)
         {
-            triggerable.TriggerExit(other);
-            AudioManager.Instance.Play(_triggerExitSound);
+            triggerable.TriggerExit(other);            
         }
 
         _onExit.Invoke();

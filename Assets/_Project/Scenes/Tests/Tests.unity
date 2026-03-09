@@ -1620,6 +1620,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _gameplayCameras: []
   _cinematicCameras: []
+  _cinematicDurations: []
+  _isCamPerspective: 1
+  _specialCamera: {fileID: 0}
   _canvas: {fileID: 0}
   _player: {fileID: 0}
   _mouseTargetIndicator: {fileID: 0}
@@ -3789,6 +3792,11 @@ PrefabInstance:
       propertyPath: _target
       value: 
       objectReference: {fileID: 330585546}
+    - target: {fileID: 3533504596169623853, guid: 758858bc7321c474e93251372badb2ae,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4375138693519653299, guid: 758858bc7321c474e93251372badb2ae,
         type: 3}
       propertyPath: m_LocalPosition.x

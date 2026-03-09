@@ -19,14 +19,9 @@ public class FunctionsAnimationEvents : MonoBehaviour
         _surfaceAudioController.OnFootStep();
     }
 
-    public void OnLanding()
-    {
-        _surfaceAudioController.OnLanding();
-    }
-
     public void OnLeverPulled()
     {
-        AudioManager.Instance.Play(SoundID.PULL_LEVER);
+        AudioManager.Instance.Play3D(SoundID.PULL_LEVER, transform);
     }
 
     public void ReturnToPos()

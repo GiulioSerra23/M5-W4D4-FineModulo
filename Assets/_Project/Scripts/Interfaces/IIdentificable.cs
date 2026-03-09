@@ -19,6 +19,9 @@ public enum ObjectID
     CHESS_B_QUEEN = 25,
     CHESS_B_BISHOP = 26,
 
+    SO_GRANADE_NOISE = 50,
+    SO_GRANADE_STUN = 51,
+
     NONE = 100,
 }
 

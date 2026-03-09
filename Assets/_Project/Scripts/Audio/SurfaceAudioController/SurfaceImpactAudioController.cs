@@ -8,7 +8,7 @@ public class SurfaceImpactAudioController : MonoBehaviour
     [SerializeField] private LayerMask _layerMask;
     [SerializeField] private Transform _origin;
 
-    private void TryPlaySurfaceSound(bool isFootStep)
+    private void TryPlaySurfaceSound()
     {
         Vector3 origin = _origin != null ? _origin.position : transform.position;
 
@@ -17,35 +17,28 @@ public class SurfaceImpactAudioController : MonoBehaviour
         {
             if (!hit.collider.TryGetComponent<SurfaceType>(out var surfaceType)) return;
 
-            SoundID sound = ConvertSurfaceToSound(surfaceType.IDSurface, isFootStep);
-            AudioManager.Instance.Play(sound);
+            SoundID sound = ConvertSurfaceToSound(surfaceType.IDSurface);
+            AudioManager.Instance.Play3D(sound, transform);
         }
     }
 
     public void OnFootStep()
     {
-        TryPlaySurfaceSound(true);
+        TryPlaySurfaceSound();
     }
 
-    public void OnLanding()
-    {
-        TryPlaySurfaceSound(false);
-    }
-
-    private SoundID ConvertSurfaceToSound(SurfaceID surface, bool isFootStep)
+    private SoundID ConvertSurfaceToSound(SurfaceID surface)
     {
         switch (surface)
         {
             case SurfaceID.GRASS:
-                return isFootStep ? SoundID.FOOTSTEPS_GRASS : SoundID.LANDING_GRASS;
+                return SoundID.FOOTSTEPS_GRASS;
             case SurfaceID.ROCK:
-                return isFootStep ? SoundID.FOOTSTEPS_ROCK : SoundID.LANDING_ROCK;
+                return SoundID.FOOTSTEPS_ROCK;
             case SurfaceID.WOOD:
-                return isFootStep ? SoundID.FOOTSTEPS_WOOD : SoundID.LANDING_WOOD;
-            case SurfaceID.WATER:
-                return SoundID.LANDING_WATER;
+                return SoundID.FOOTSTEPS_WOOD;
             default:
-                return isFootStep ? SoundID.FOOTSTEPS_GRASS : SoundID.LANDING_GRASS;
+                return SoundID.FOOTSTEPS_GRASS;
         }
     }
 }

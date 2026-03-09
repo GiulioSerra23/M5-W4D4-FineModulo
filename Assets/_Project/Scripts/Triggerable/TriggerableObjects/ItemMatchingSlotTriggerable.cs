@@ -16,7 +16,7 @@ public class ItemMatchingSlotTriggerable : MonoBehaviour, ITriggerable
 
     private bool _isCorrect;
 
-    public event Action<ItemMatchingSlotTriggerable> OnSlotStateChanged;
+    public event Action OnSlotStateChanged;
     public bool IsCorrect => _isCorrect;
 
     private void SnapObject(Collider other)
@@ -49,7 +49,7 @@ public class ItemMatchingSlotTriggerable : MonoBehaviour, ITriggerable
         if (_lockOnCorrect) SnapObject(other);
 
         _onSlotCorrect.Invoke();
-        OnSlotStateChanged?.Invoke(this);
+        OnSlotStateChanged?.Invoke();
     }
 
     public void TriggerExit(Collider other) { }

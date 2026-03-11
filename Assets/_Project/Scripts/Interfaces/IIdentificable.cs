@@ -27,5 +27,5 @@ public enum ObjectID
 
 public interface IIdentificable
 {
-    public ObjectID ID { get; set; }
+    public ObjectID ID { get;}
 }

@@ -46,5 +46,3 @@ public class ObjectPool: MonoBehaviour
         obj.gameObject.SetActive(false);
     }
 }
-
-
